@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Divine Jean Banda - Portfolio</title>
+<style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "calibri", sans-serif;
+    }
+    body {
+      background: lavenderblush;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(135deg, black, #8f94fb);
+      padding: 20px 20px;
+      text-align: center;
+      color: black;
+    }
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      
+    }
+    header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+    nav {
+      position: sticky;
+      top: 0;
+      background: white;
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 100;
+    }
+    nav a {
+      text-decoration: none;
+      color: black;
+      font-weight: 600;
+    }
+    section {
+      padding: 50px 20px;
+      width: 90%;
+      max-width: 1000px;
+      margin: auto;
+    }
+    h2 {
+      font-size: 2rem;
+      color: #4e54c8;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .about p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      text-align: justify;
+    }
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .project-card {
+      background: yellowgreen;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+    }
+    .project-card h3 {
+      margin-bottom: 10px;
+      color: black;
+    }
+    .contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    input, textarea {
+      padding: 12px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    button {
+      padding: 12px;
+      background: #4e54c8;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+    button:hover {
+      background: #3c42a1;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #4e54c8;
+      color: white;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Divine Jean Banda</h1>
+    <p>IT Student • Front-End Developer • Creative Thinker</p>
+  </header>
+
+  
+
+  <section id="about" class="about">
+    <h2>About Me</h2>
+     <center><img src="c:\Users\Grace Joy Banda\Downloads\Gemini_Generated_Image_tb7bv5tb7bv5tb7b.png"  style="width:40%; height:auto;"> </center>
+    
+
+    <p>
+      Hello! I am Divine Jean Banda, an enthusiastic IT student with a passion for web development and creative digital solutions. I enjoy building clean, visually appealing, and user-friendly websites using HTML, CSS, and JavaScript. I love learning new technologies and improving my skills to bring ideas to life through interactive and responsive designs.
+      <br><br>
+      My interests include UI/UX design, front-end development, and problem-solving. I believe in continuous growth, collaboration, and using technology to make meaningful contributions.
+    </p>
+  </section>
+
+  <section id="projects">
+    <h2>My Projects</h2>
+    <div class="projects">
+      <div class="project-card">
+        <h3>Personal Portfolio Website</h3>
+        <img src="c:\Users\Grace Joy Banda\Downloads\Banda_Firstname_PortfolioLayout.png" width="150">
+
+        <p>"A clean and well-structured layout portfolio showcasing thoughtfully designed pages, balanced compositions, and visually appealing arrangements that highlight clarity, creativity, and user-focused design.".</p>
+      </div>
+      
+      <div class="project-card">
+        <h3>Calling Card</h3>
+         <img src="c:\Users\Grace Joy Banda\Downloads\Banda_Week 3 _CallingCard.png" width="250">
+        <p>“A simple yet elegant calling card layout with well-structured information and modern design elements.”</p>
+      </div>
+      
+      <div class="project-card">
+        <h3>Sushi</h3>
+        <img src="c:\Users\Grace Joy Banda\Downloads\Banda_Week.1.jpg" width="200">
+        <p>"Rollin’ with the best."</p>
+      </div>
+    </div>
+  </section>
+
+  
+  
+         <h1>Save Contact Information</h1>
+  
+
+    
+    <form id="contactForm">
+        <input type="text" id="name" placeholder="Enter Name" required>
+        <input type="email" id="email" placeholder="Enter Email" required>
+        <input type="text" id="number" placeholder="Enter Phone Number" required>
+        <button type="submit">Save Contact</button>
+    </form>
+
+    
+    <div id="contactList"></div>
+
+    <script>
+        
+        window.onload = function() {
+            displayContacts();
+        };
+
+        
+        document.getElementById("contactForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const contact = {
+                id: Date.now(), 
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                number: document.getElementById("number").value
+            };
+
+            
+            let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+
+            
+            contacts.push(contact);
+
+            
+            localStorage.setItem("contacts", JSON.stringify(contacts));
+
+            
+            document.getElementById("contactForm").reset();
+
+            
+            displayContacts();
+        });
+
+       
+        function displayContacts() {
+            const contactList = document.getElementById("contactList");
+            contactList.innerHTML = "";
+
+            let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+
+            contacts.forEach(contact => {
+                let div = document.createElement("div");
+                div.className = "contact-card";
+                div.innerHTML = `
+                    <strong>Name:</strong> ${contact.name} <br>
+                    <strong>Email:</strong> ${contact.email} <br>
+                    <strong>Number:</strong> ${contact.number} <br>
+                    <button class="delete-btn" onclick="deleteContact(${contact.id})">Delete</button>
+                `;
+                contactList.appendChild(div);
+            });
+        }
+
+        
+        function deleteContact(id) {
+            let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+
+            
+            contacts = contacts.filter(contact => contact.id !== id);
+
+            
+            localStorage.setItem("contacts", JSON.stringify(contacts));
+
+        
+            displayContacts();
+        }
+    </script>
+
+</body>
+</html>
+
+<section id="contact">
+    
+    <p>Send a message below — your message will be saved automatically.</p>
+
+    <textarea id="messageInput" placeholder="Type your message..."></textarea>
+    <button onclick="saveMessage()">Save Message</button>
+
+    <h3>Saved Messages:</h3>
+    <div id="savedMessages"></div>
+</section>
+
+<script>
+    
+    function loadMessages() {
+        let messages = localStorage.getItem("divineMessages");
+        return messages ? JSON.parse(messages) : [];
+    }
+
+   
+    function displayMessages() {
+        let messages = loadMessages();
+        let container = document.getElementById("savedMessages");
+        container.innerHTML = "";
+
+        messages.forEach((msg, index) => {
+            container.innerHTML += `
+                <div class="msg-item">
+                    <span>${msg}</span>
+                    <button class="delete-btn" onclick="deleteMessage(${index})">Delete</button>
+                </div>
+            `;
+        });
+    }
+
+    
+    function saveMessage() {
+        let input = document.getElementById("messageInput");
+        let text = input.value.trim();
+
+        if (text === "") {
+            alert("Please type a message.");
+            return;
+        }
+
+        let messages = loadMessages();
+        messages.push(text);
+        localStorage.setItem("divineMessages", JSON.stringify(messages));
+
+        input.value = "";
+        displayMessages();
+    }
+
+   
+    function deleteMessage(index) {
+        let messages = loadMessages();
+        messages.splice(index, 1);
+        localStorage.setItem("divineMessages", JSON.stringify(messages));
+        displayMessages();
+    }
+
+    
+    displayMessages();
+</script>
+
+</body>
+</html
+
+
